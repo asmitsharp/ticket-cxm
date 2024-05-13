@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ticket-cxm-depl
+spec:
+  selector:
+    matchLabels:
+      app: ticket-cxm
+  template:
+    metadata:
+      labels:
+        app: ticket-cxm
+    spec:
+      containers:
+      - name: ticket-cxm
+        image: asmitsharp/ticket-cxm
+        env:
+            - name: JWT_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-sec
+                  key: JWT_KEY
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-password
+                  key: POSTGRES_PASSWORD
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ticket-cxm-srv
+spec:
+  selector:
+    app: ticket-cxm
+  ports:
+    - name: ticket-cxm 
+      protocol: TCP
+      port: 3000
+      targetPort: 3000
+
+
