@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react"
 import { AuthContext } from "../contexts/AuthContext"
-import { validateRegisterForm } from "../utils//validateRegisterForm"
+import { validateRegisterForm } from "../utils/validateRegisterForm"
 import { handleError } from "../utils/handleError"
 
 const Register = () => {
